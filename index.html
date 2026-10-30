@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10101a" />
+  <meta name="description" content="A beautifully designed, keyboard-friendly advanced scientific calculator with history, memory, and DEG/RAD modes." />
+  <title>AstraCalc — Advanced Scientific Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+</head>
+<body data-theme="dark">
+  <div class="background-glow background-glow--one" aria-hidden="true"></div>
+  <div class="background-glow background-glow--two" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="#main-content" aria-label="AstraCalc home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="21" cy="21" r="5" fill="currentColor" />
+            <ellipse cx="21" cy="21" rx="17" ry="8" stroke="currentColor" stroke-width="1.8" transform="rotate(-35 21 21)"/>
+            <ellipse cx="21" cy="21" rx="17" ry="8" stroke="currentColor" stroke-width="1.8" transform="rotate(35 21 21)"/>
+          </svg>
+        </span>
+        <span class="brand-name">astra<span>calc</span><span class="brand-dot">.</span></span>
+      </a>
+      <div class="header-actions">
+        <span class="header-badge"><span class="status-dot"></span> SCIENTIFIC WORKSPACE</span>
+        <button class="icon-button theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 14.3A8.7 8.7 0 0 1 9.7 3.6a8.7 8.7 0 1 0 10.7 10.7Z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content" class="workspace">
+      <aside class="sidebar" aria-label="Calculator information and history">
+        <div class="intro">
+          <div class="eyebrow"><span class="eyebrow-line"></span> YOUR DIGITAL MATH STUDIO</div>
+          <h1>Think beyond<br/><em>the numbers.</em></h1>
+          <p>Every equation deserves a little elegance. Calculate, explore, and discover with precision.</p>
+        </div>
+
+        <div class="decorative-orbit" aria-hidden="true">
+          <span class="orbit orbit--outer"></span>
+          <span class="orbit orbit--inner"></span>
+          <span class="orbit-center">π</span>
+          <span class="orbit-spark orbit-spark--one"></span>
+          <span class="orbit-spark orbit-spark--two"></span>
+          <span class="orbit-caption">A LITTLE MAGIC IN EVERY FORMULA</span>
+        </div>
+
+        <section class="history-panel" id="historyPanel" aria-labelledby="historyTitle">
+          <div class="section-heading">
+            <div>
+              <span class="mini-overline">YOUR WORKSPACE</span>
+              <h2 id="historyTitle">Recent history</h2>
+            </div>
+            <button type="button" class="text-button" id="clearHistory" aria-label="Clear all calculation history">Clear all</button>
+          </div>
+          <div class="history-list" id="historyList" aria-live="polite">
+            <div class="empty-history"><span class="empty-history-icon">↺</span><span>Your calculations will appear here.</span></div>
+          </div>
+        </section>
+
+        <div class="sidebar-bottom"><span class="tiny-star">✳</span> Crafted for curious minds <span class="version">V 1.0</span></div>
+      </aside>
+
+      <section class="calculator" aria-label="Advanced scientific calculator">
+        <div class="calculator-topline">
+          <div class="calculator-label"><span class="calc-indicator"></span> ADVANCED SCIENTIFIC CALCULATOR</div>
+          <div class="topline-actions">
+            <button class="mini-action" type="button" id="historyShortcut" title="Jump to calculation history" aria-label="View history">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.5-6.2M3 4v5h5"/><path d="M12 7v5l3.5 2"/></svg>
+              <span>History</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="display" aria-label="Calculation display">
+          <div class="display-upper">
+            <span class="display-tag">EXPRESSION</span>
+            <div class="angle-switch" role="group" aria-label="Angle mode">
+              <button type="button" class="angle-button active" data-mode="DEG" aria-pressed="true">DEG</button>
+              <button type="button" class="angle-button" data-mode="RAD" aria-pressed="false">RAD</button>
+            </div>
+          </div>
+          <div class="expression" id="expression" aria-label="Current expression">0<span class="caret" aria-hidden="true"></span></div>
+          <div class="display-separator" aria-hidden="true"></div>
+          <div class="result-caption"><span>RESULT <span class="live-pill">LIVE</span></span><span id="memoryIndicator" class="memory-indicator" hidden>● MEMORY STORED</span></div>
+          <div class="answer-row">
+            <output class="result" id="result" aria-live="polite" aria-atomic="true">0</output>
+            <button class="copy-button" type="button" id="copyResult" aria-label="Copy result to clipboard" title="Copy result">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+            </button>
+          </div>
+          <div class="display-footer"><span id="displayHint">Ready for your next big idea.</span><span id="angleIndicator">DEG MODE</span></div>
+        </div>
+
+        <div class="memory-toolbar" aria-label="Memory functions">
+          <span class="memory-label">MEMORY</span>
+          <button type="button" data-action="memory-clear" title="Clear memory">MC</button>
+          <button type="button" data-action="memory-recall" title="Insert stored memory value">MR</button>
+          <button type="button" data-action="memory-add" title="Add current value to memory">M+</button>
+          <button type="button" data-action="memory-subtract" title="Subtract current value from memory">M−</button>
+          <button type="button" data-action="memory-store" title="Store current value in memory">MS</button>
+        </div>
+
+        <div class="keypad-area">
+          <div class="pad-group scientific-group">
+            <div class="pad-title"><span>01 / SCIENTIFIC FUNCTIONS</span><span class="title-glyph">✧</span></div>
+            <div class="pad-grid science-grid" aria-label="Scientific function keys">
+              <button class="key key--science" data-insert="sin(" aria-label="Sine">sin</button>
+              <button class="key key--science" data-insert="cos(" aria-label="Cosine">cos</button>
+              <button class="key key--science" data-insert="tan(" aria-label="Tangent">tan</button>
+              <button class="key key--science" data-insert="sqrt(" aria-label="Square root">√x</button>
+
+              <button class="key key--science" data-insert="asin(" aria-label="Inverse sine">sin<sup>−1</sup></button>
+              <button class="key key--science" data-insert="acos(" aria-label="Inverse cosine">cos<sup>−1</sup></button>
+              <button class="key key--science" data-insert="atan(" aria-label="Inverse tangent">tan<sup>−1</sup></button>
+              <button class="key key--science" data-insert="^2" aria-label="Square">x<sup>2</sup></button>
+
+              <button class="key key--science" data-insert="ln(" aria-label="Natural logarithm">ln</button>
+              <button class="key key--science" data-insert="log(" aria-label="Common logarithm base ten">log</button>
+              <button class="key key--science" data-insert="log2(" aria-label="Logarithm base two">log<sub>2</sub></button>
+              <button class="key key--science" data-insert="^" aria-label="Power">x<sup>y</sup></button>
+
+              <button class="key key--science" data-insert="exp(" aria-label="Exponential e to x">e<sup>x</sup></button>
+              <button class="key key--science" data-insert="pow10(" aria-label="Ten to x">10<sup>x</sup></button>
+              <button class="key key--science" data-insert="inv(" aria-label="Reciprocal">1/x</button>
+              <button class="key key--science" data-insert="abs(" aria-label="Absolute value">|x|</button>
+
+              <button class="key key--science" data-insert="!" aria-label="Factorial">x!</button>
+              <button class="key key--science" data-insert="nCr" aria-label="Combinations">nCr</button>
+              <button class="key key--science" data-insert="nPr" aria-label="Permutations">nPr</button>
+              <button class="key key--science" data-insert="mod" aria-label="Modulo">mod</button>
+
+              <button class="key key--science key--constant" data-insert="π" aria-label="Pi">π</button>
+              <button class="key key--science key--constant" data-insert="e" aria-label="Euler's number">e</button>
+              <button class="key key--science key--constant" data-insert="Ans" aria-label="Previous answer">Ans</button>
+              <button class="key key--science key--constant" data-action="exponent" aria-label="Scientific notation exponent">EXP</button>
+            </div>
+          </div>
+
+          <div class="pad-group basic-group">
+            <div class="pad-title"><span>02 / THE ESSENTIALS</span><span class="title-glyph">⌘</span></div>
+            <div class="pad-grid basic-grid" aria-label="Number and operator keys">
+              <button class="key key--utility key--clear" data-action="clear" aria-label="Clear all">AC</button>
+              <button class="key key--utility" data-action="sign" aria-label="Change sign">±</button>
+              <button class="key key--utility" data-insert="%" aria-label="Percent">%</button>
+              <button class="key key--utility" data-action="delete" aria-label="Delete last input">DEL</button>
+
+              <button class="key key--operator" data-insert="(" aria-label="Open parenthesis">(</button>
+              <button class="key key--operator" data-insert=")" aria-label="Close parenthesis">)</button>
+              <button class="key key--operator" data-insert="/" aria-label="Divide">÷</button>
+              <button class="key key--operator" data-insert="*" aria-label="Multiply">×</button>
+
+              <button class="key key--number" data-insert="7">7</button>
+              <button class="key key--number" data-insert="8">8</button>
+              <button class="key key--number" data-insert="9">9</button>
+              <button class="key key--operator" data-insert="-" aria-label="Subtract">−</button>
+
+              <button class="key key--number" data-insert="4">4</button>
+              <button class="key key--number" data-insert="5">5</button>
+              <button class="key key--number" data-insert="6">6</button>
+              <button class="key key--operator" data-insert="+" aria-label="Add">+</button>
+
+              <button class="key key--number" data-insert="1">1</button>
+              <button class="key key--number" data-insert="2">2</button>
+              <button class="key key--number" data-insert="3">3</button>
+              <button class="key key--equals" data-action="equals" aria-label="Calculate equals">=</button>
+
+              <button class="key key--number key--zero" data-insert="0">0</button>
+              <button class="key key--number" data-insert=".">.</button>
+            </div>
+          </div>
+        </div>
+        <div class="calc-footer">
+          <span><span class="footer-spark">✦</span> Precision meets possibility.</span>
+          <span><kbd>Enter</kbd> calculate <span class="footer-divider">·</span> <kbd>Esc</kbd> clear <span class="footer-divider">·</span> <kbd>⌫</kbd> delete</span>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><span>ASTRACALC © 2026</span><span>Made with curiosity, logic &amp; JavaScript.</span></footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
